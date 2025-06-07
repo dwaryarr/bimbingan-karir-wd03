@@ -1,4 +1,3 @@
-<!-- resources/views/jadwal-periksa/create-dummy.blade.php -->
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
@@ -19,6 +18,11 @@
                             <p class="mt-1 text-sm text-gray-600">
                                 {{ __('Silakan isi form di bawah ini untuk menambahkan jadwal pemeriksaan dokter sesuai dengan hari dan waktu yang tersedia.') }}
                             </p>
+                            @if (session('alert'))
+                                <div class="mb-4 alert alert-success">
+                                    {{ session('alert') }}
+                                </div>
+                            @endif
                         </header>
 
                         <form class="mt-6" id="formJadwal" action="{{ route('dokter.jadwal-periksa.store') }}"
@@ -50,7 +54,8 @@
                                     value="12:00">
                             </div>
 
-                            <a type="button" href="#" class="btn btn-secondary">
+                            <a type="button" href="{{ route('dokter.jadwal-periksa.index') }}"
+                                class="btn btn-secondary me-2">
                                 Batal
                             </a>
                             <button type="submit" class="btn btn-primary">

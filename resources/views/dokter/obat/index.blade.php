@@ -16,10 +16,14 @@
                         </h2>
 
                         <div class="flex-col items-center justify-center text-center">
-                            <a href="{{route('dokter.obat.create')}}" class="btn btn-primary">Tambah Obat</a>
+                            <a href="{{ route('dokter.obat.create') }}" class="btn btn-primary">Tambah Obat</a>
                         </div>
                     </header>
-
+                    @if (session('alert'))
+                        <div class="mb-4 alert alert-success">
+                            {{ session('alert') }}
+                        </div>
+                    @endif
                     <table class="table mt-6 overflow-hidden rounded table-hover">
                         <thead class="thead-light">
                             <tr>
@@ -31,21 +35,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($obats as $obat )
-                            <tr>
-                                <th scope="row" class="align-middle text-start">{{ $obat->id }}</th>
-                                <td class="align-middle text-start">{{ $obat->nama_obat }}</td>
-                                <td class="align-middle text-start">{{ $obat->kemasan }}</td>
-                                <td class="align-middle text-start">{{ $obat->harga }}</td>
-                                <td class="flex items-center gap-3">
-                                    <a href="{{route('dokter.obat.edit', $obat->id  )}}" class="btn btn-secondary btn-sm">Edit</a>
-                                    <form action="{{route('dokter.obat.destroy', $obat->id)}}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
+                            @foreach ($obats as $obat)
+                                <tr>
+                                    <th scope="row" class="align-middle text-start">{{ $obat->id }}</th>
+                                    <td class="align-middle text-start">{{ $obat->nama_obat }}</td>
+                                    <td class="align-middle text-start">{{ $obat->kemasan }}</td>
+                                    <td class="align-middle text-start">{{ $obat->harga }}</td>
+                                    <td class="flex items-center gap-3">
+                                        <a href="{{ route('dokter.obat.edit', $obat->id) }}"
+                                            class="btn btn-secondary btn-sm">Edit</a>
+                                        <form action="{{ route('dokter.obat.destroy', $obat->id) }}" method="POST"
+                                            onsubmit="return confirm('Apakah Anda yakin ingin menghapus obat ini?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

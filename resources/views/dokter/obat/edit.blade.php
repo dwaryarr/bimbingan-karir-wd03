@@ -1,5 +1,3 @@
-edit
-<!-- resources/views/obat/edit-dummy.blade.php -->
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
@@ -20,30 +18,44 @@ edit
                             <p class="mt-1 text-sm text-gray-600">
                                 {{ __('Silakan perbarui informasi obat sesuai dengan nama, kemasan, dan harga terbaru.') }}
                             </p>
+                            @if (session('alert'))
+                                <div class="mb-4 alert alert-success">
+                                    {{ session('alert') }}
+                                </div>
+                            @endif
                         </header>
 
-                        <form class="mt-6" action="{{route('dokter.obat.update', $obat->id)}}" method="POST">
+                        <form class="mt-6" action="{{ route('dokter.obat.update', $obat->id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="mb-3 form-group">
                                 <label for="editNamaObatInput">Nama</label>
                                 <input type="text" class="rounded form-control" id="editNamaObatInput"
-                                    value="{{ $obat->nama_obat }}" name="nama_obat">
+                                    value="{{ old('nama_obat', $obat->nama_obat) }}" name="nama_obat">
+                                @error('nama_obat')
+                                    <div class="mt-1 text-sm text-red-600">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="mb-3 form-group">
                                 <label for="editKemasanInput">Kemasan</label>
                                 <input type="text" class="rounded form-control" id="editKemasanInput"
-                                    value="{{ $obat->kemasan }}" name="kemasan">
+                                    value="{{ old('kemasan', $obat->kemasan) }}" name="kemasan">
+                                @error('kemasan')
+                                    <div class="mt-1 text-sm text-red-600">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="mb-3 form-group">
                                 <label for="editHargaInput">Harga</label>
                                 <input type="text" class="rounded form-control" id="editHargaInput"
-                                    value="{{ $obat->harga }}" name="harga">
+                                    value="{{ old('harga', $obat->harga) }}" name="harga">
+                                @error('harga')
+                                    <div class="mt-1 text-sm text-red-600">{{ $message }}</div>
+                                @enderror
                             </div>
 
-                            <a type="button" href="{{route('dokter.obat.index')}}" class="btn btn-secondary">
+                            <a type="button" href="{{ route('dokter.obat.index') }}" class="btn btn-secondary">
                                 Batal
                             </a>
                             <button type="submit" class="btn btn-primary">

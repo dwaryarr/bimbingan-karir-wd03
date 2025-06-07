@@ -20,7 +20,11 @@
                                 href="{{ route('dokter.jadwal-periksa.create') }}">Tambah Jadwal Periksa</a>
                         </div>
                     </header>
-
+                    @if (session('alert'))
+                        <div class="mb-4 alert alert-success">
+                            {{ session('alert') }}
+                        </div>
+                    @endif
                     <table class="table mt-6 overflow-hidden rounded table-hover">
                         <thead class="thead-light">
                             <tr>

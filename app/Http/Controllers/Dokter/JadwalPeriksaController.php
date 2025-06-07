@@ -47,7 +47,7 @@ class JadwalPeriksaController extends Controller
             ->where('jam_selesai', $validated['jam_selesai'])
             ->exists()
         ) {
-            return redirect()->back()->withErrors(['jadwal' => 'Jadwal sudah ada']);
+            return redirect()->back()->withErrors(['alert' => 'Jadwal sudah ada']);
         }
 
         JadwalPeriksa::create([
@@ -58,7 +58,7 @@ class JadwalPeriksaController extends Controller
             'status' => 0,
         ]);
 
-        return redirect()->route('dokter.jadwal-periksa.index')->with('success', 'Jadwal periksa berhasil ditambahkan');
+        return redirect()->route('dokter.jadwal-periksa.index')->with('alert', 'Jadwal periksa berhasil ditambahkan');
     }
 
     public function update($id)
@@ -72,11 +72,11 @@ class JadwalPeriksaController extends Controller
             $jadwalPeriksa->status = true;
             $jadwalPeriksa->save();
 
-            return redirect()->route('dokter.jadwal-periksa.index')->with('success', 'Jadwal periksa berhasil diaktifkan');
+            return redirect()->route('dokter.jadwal-periksa.index')->with('alert', 'Jadwal periksa berhasil diaktifkan');
         }
 
         $jadwalPeriksa->status = false;
         $jadwalPeriksa->save();
-        return redirect()->route('dokter.jadwal-periksa.index')->with('success', 'Jadwal periksa berhasil dinonaktifkan');
+        return redirect()->route('dokter.jadwal-periksa.index')->with('alert', 'Jadwal periksa berhasil dinonaktifkan');
     }
 }

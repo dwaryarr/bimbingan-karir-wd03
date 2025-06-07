@@ -1,6 +1,5 @@
 create
 
-<!-- resources/views/obat/create-dummy.blade.php -->
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
@@ -21,24 +20,43 @@ create
                             <p class="mt-1 text-sm text-gray-600">
                                 {{ __('Silakan isi form di bawah ini untuk menambahkan data obat ke dalam sistem.') }}
                             </p>
+                            @if (session('alert'))
+                                <div class="mb-4 alert alert-success">
+                                    {{ session('alert') }}
+                                </div>
+                            @endif
                         </header>
 
-                        <form class="mt-6" id="formObat" action="{{route('dokter.obat.store', )}}" method="POST">
+                        <form class="mt-6" id="formObat" action="{{ route('dokter.obat.store') }}" method="POST">
                             @csrf
                             <div class="mb-3 form-group">
                                 <label for="namaObat">Nama Obat</label>
-                                <input type="text" class="rounded form-control" id="namaObat" name="nama_obat" value="Paracetamol">
+                                <input type="text"
+                                    class="rounded form-control @error('nama_obat') is-invalid @enderror" id="namaObat"
+                                    name="nama_obat" value="{{ old('nama_obat') }}">
+                                @error('nama_obat')
+                                    <div class="invalid-feedback text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="mb-3 form-group">
                                 <label for="kemasan">Kemasan</label>
-                                <input type="text" class="rounded form-control" id="kemasan" name="kemasan" value="Tablet 500 mg">
+                                <input type="text"
+                                    class="rounded form-control @error('kemasan') is-invalid @enderror" id="kemasan"
+                                    name="kemasan" value="{{ old('kemasan') }}">
+                                @error('kemasan')
+                                    <div class="invalid-feedback text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="mb-3 form-group">
                                 <label for="harga">Harga</label>
-                                <input type="text" class="rounded form-control" id="harga" name="harga" value="10000">
+                                <input type="text" class="rounded form-control @error('harga') is-invalid @enderror"
+                                    id="harga" name="harga" value="{{ old('harga') }}">
+                                @error('harga')
+                                    <div class="invalid-feedback text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
-                            <a type="button" href="{{route('dokter.obat.index')}}" class="btn btn-secondary">
+                            <a type="button" href="{{ route('dokter.obat.index') }}" class="btn btn-secondary">
                                 Batal
                             </a>
                             <button type="submit" class="btn btn-primary">
