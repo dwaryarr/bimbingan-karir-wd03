@@ -58,4 +58,26 @@ class ObatController extends Controller
 
         return redirect()->route('dokter.obat.index')->with('alert', 'Obat berhasil dihapus');
     }
+
+    public function trashed()
+    {
+        $obats = Obat::onlyTrashed()->get();
+        return view('dokter.obat.trashed', compact('obats'));
+    }
+
+    public function restore($id)
+    {
+        $obat = Obat::withTrashed()->findOrFail($id);
+        $obat->restore();
+
+        return redirect()->route('dokter.obat.index')->with('alert', 'Obat berhasil dipulihkan');
+    }
+
+    public function forceDelete($id)
+    {
+        $obat = Obat::withTrashed()->findOrFail($id);
+        $obat->forceDelete();
+
+        return redirect()->route('dokter.obat.trashed')->with('alert', 'Obat berhasil dihapus permanen');
+    }
 }

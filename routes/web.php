@@ -4,7 +4,7 @@ use App\Http\Controllers\Dokter\JadwalPeriksaController;
 use App\Http\Controllers\Dokter\MemeriksaController;
 use App\Models\Obat;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ObatController;
+use App\Http\Controllers\Dokter\ObatController;
 use App\Http\Controllers\Pasien\JanjiPeriksaController;
 use App\Http\Controllers\Pasien\RiwayatPeriksaController;
 use App\Http\Controllers\ProfileController;
@@ -34,6 +34,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/edit/{id}', [ObatController::class, 'edit'])->name('dokter.obat.edit');
             Route::put('/update/{id}', [ObatController::class, 'update'])->name('dokter.obat.update');
             Route::delete('destroy/{id}', [ObatController::class, 'destroy'])->name('dokter.obat.destroy');
+            Route::get('/trashed', [ObatController::class, 'trashed'])->name('dokter.obat.trashed');
+            Route::patch('/restore/{id}', [ObatController::class, 'restore'])->name('dokter.obat.restore');
+            Route::delete('/forcedelete/{id}', [ObatController::class, 'forceDelete'])->name('dokter.obat.forcedelete');
         });
 
         Route::prefix('jadwal-periksa')->group(function () {

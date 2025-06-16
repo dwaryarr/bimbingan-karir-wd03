@@ -16,9 +16,8 @@
                         </h2>
 
                         <div class="flex-col items-center justify-center text-center">
-                            <a href="{{ route('dokter.obat.create') }}" class="btn btn-primary">Tambah Obat</a>
-                            <a href="{{ route('dokter.obat.trashed') }}" class="btn btn-secondary">
-                                Obat Terhapus
+                            <a href="{{ route('dokter.obat.index') }}" class="btn btn-primary">
+                                Kembali ke Daftar Obat
                             </a>
                         </div>
                     </header>
@@ -40,18 +39,23 @@
                         <tbody>
                             @foreach ($obats as $obat)
                                 <tr>
-                                    <th scope="row" class="align-middle text-start">{{ $loop->iteration }}</th>
+                                    <th scope="row" class="align-middle text-start">{{ $obat->id }}</th>
                                     <td class="align-middle text-start">{{ $obat->nama_obat }}</td>
                                     <td class="align-middle text-start">{{ $obat->kemasan }}</td>
                                     <td class="align-middle text-start">{{ $obat->harga }}</td>
                                     <td class="flex items-center gap-3">
-                                        <a href="{{ route('dokter.obat.edit', $obat->id) }}"
-                                            class="btn btn-secondary btn-sm">Edit</a>
-                                        <form action="{{ route('dokter.obat.destroy', $obat->id) }}" method="POST"
-                                            onsubmit="return confirm('Apakah Anda yakin ingin menghapus obat ini?');">
+                                        <form action="{{ route('dokter.obat.restore', $obat->id) }}" method="POST"
+                                            onsubmit="return confirm('Apakah Anda yakin ingin mengembalikan obat ini?');">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button type="submit" class="btn btn-success btn-sm">Restore</button>
+                                        </form>
+                                        <form action="{{ route('dokter.obat.forcedelete', $obat->id) }}" method="POST"
+                                            onsubmit="return confirm('Hapus permanen obat ini? Tindakan ini tidak dapat dibatalkan!');"
+                                            class="inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            <button type="submit" class="btn btn-danger btn-sm">Hapus Permanen</button>
                                         </form>
                                     </td>
                                 </tr>
