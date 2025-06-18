@@ -34,7 +34,8 @@
                             @foreach ($janjiPeriksa as $jp)
                                 <tr>
                                     <th scope="row" class="align-middle text-start">{{ $loop->iteration }}</th>
-                                    <td class="align-middle text-start">{{ $jp->jadwalPeriksa->dokter->poli }}</td>
+                                    <td class="align-middle text-start">{{ $jp->jadwalPeriksa->dokter->poli->nama }}
+                                    </td>
                                     <td class="align-middle text-start">{{ $jp->jadwalPeriksa->dokter->nama }}</td>
                                     <td class="align-middle text-start">{{ $jp->jadwalPeriksa->hari }}</td>
                                     <td class="align-middle text-start">
