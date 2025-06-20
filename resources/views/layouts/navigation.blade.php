@@ -5,7 +5,8 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a
+                        href="{{ auth()->user()->role == 'dokter' ? route('dokter.dashboard') : route('pasien.dashboard') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
                 </div>
@@ -13,7 +14,7 @@
                 <!-- Navigation Links -->
                 @if (auth()->user()->role == 'dokter')
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        <x-nav-link :href="route('dokter.dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
                     </div>
@@ -34,7 +35,7 @@
                     </div>
                 @else
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        <x-nav-link :href="route('pasien.dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
                     </div>
@@ -109,9 +110,30 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
+            @if (auth()->user()->role == 'dokter')
+                <x-responsive-nav-link :href="route('dokter.dashboard')" :active="request()->routeIs('dashboard')">
+                    {{ __('Dashboard') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('dokter.jadwal-periksa.index')" :active="request()->routeIs('dokter.jadwal-periksa.*')">
+                    {{ __('Jadwal Periksa') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('dokter.memeriksa.index')" :active="request()->routeIs('dokter.memeriksa.*')">
+                    {{ __('Memeriksa') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('dokter.obat.index')" :active="request()->routeIs('dokter.obat.*')">
+                    {{ __('Obat') }}
+                </x-responsive-nav-link>
+            @else
+                <x-responsive-nav-link :href="route('pasien.dashboard')" :active="request()->routeIs('dashboard')">
+                    {{ __('Dashboard') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('pasien.janji-periksa.index')" :active="request()->routeIs('pasien.janji-periksa.*')">
+                    {{ __('Janji Periksa') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('pasien.riwayat-periksa.index')" :active="request()->routeIs('pasien.riwayat-periksa.*')">
+                    {{ __('Riwayat Periksa') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

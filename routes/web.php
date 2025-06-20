@@ -5,6 +5,7 @@ use App\Http\Controllers\Dokter\MemeriksaController;
 use App\Models\Obat;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dokter\ObatController;
+use App\Http\Controllers\pasien\DashboardController;
 use App\Http\Controllers\Pasien\JanjiPeriksaController;
 use App\Http\Controllers\Pasien\RiwayatPeriksaController;
 use App\Http\Controllers\ProfileController;
@@ -14,6 +15,12 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
+    $user = auth()->user();
+    if ($user->role === 'dokter') {
+        return redirect()->route('dokter.dashboard');
+    } elseif ($user->role === 'pasien') {
+        return redirect()->route('pasien.dashboard');
+    }
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -57,9 +64,7 @@ Route::middleware('auth')->group(function () {
 
 
     Route::middleware(['role:pasien'])->prefix('pasien')->group(function () {
-        Route::get('/', function () {
-            return view('pasien.dashboard');
-        })->name('pasien.dashboard');
+        Route::get('/', [DashboardController::class, 'index'])->name('pasien.dashboard');
 
         Route::prefix('janji-periksa')->group(function () {
             Route::get('/', [JanjiPeriksaController::class, 'index'])->name('pasien.janji-periksa.index');
