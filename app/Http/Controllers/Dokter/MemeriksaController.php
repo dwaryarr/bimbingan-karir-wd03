@@ -41,10 +41,14 @@ class MemeriksaController extends Controller
 
     public function store(Request $request, $id)
     {
+        $request->merge([
+            'total_biaya' => preg_replace('/\D/', '', $request->total_biaya)
+        ]);
         $validated = $request->validate([
             'tgl_periksa' => 'required|date',
             'catatan' => 'required|string|max:255',
             'biaya_periksa' => 'required|numeric|min:0',
+            'total_biaya' => 'required|numeric|min:0',
             'obats' => 'array',
             'obats.*' => 'exists:obats,id',
         ]);
@@ -56,6 +60,7 @@ class MemeriksaController extends Controller
             'tgl_periksa' => $validated['tgl_periksa'],
             'catatan' => $validated['catatan'],
             'biaya_periksa' => $validated['biaya_periksa'],
+            'total_biaya' => $validated['biaya_periksa'],
         ]);
 
         foreach ($validated['obats'] as $obatId) {
@@ -82,13 +87,18 @@ class MemeriksaController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->merge([
+            'total_biaya' => preg_replace('/\D/', '', $request->total_biaya)
+        ]);
         $validated = $request->validate([
             'tgl_periksa' => 'required|date',
             'catatan' => 'required|string|max:255',
             'biaya_periksa' => 'required|numeric|min:0',
+            'total_biaya' => 'required|numeric|min:0',
             'obats' => 'array',
             'obats.*' => 'exists:obats,id',
         ]);
+
 
         $janjiPeriksa = JanjiPeriksa::findOrFail($id);
         $periksa = Periksa::where('id_janji_periksa', $janjiPeriksa->id)->first();
@@ -98,6 +108,7 @@ class MemeriksaController extends Controller
                 'tgl_periksa' => $validated['tgl_periksa'],
                 'catatan' => $validated['catatan'],
                 'biaya_periksa' => $validated['biaya_periksa'],
+                'total_biaya' => $validated['total_biaya'],
             ]);
         } else {
             return redirect()->back()->with('alert', 'Periksa tidak ditemukan.');

@@ -72,6 +72,17 @@
                         </div>
                     </div>
 
+                    <div class="mb-4 border-2 card bg-light">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="font-semibold text-gray-800 fw-bold">Total Biaya</span>
+                                <span class="fw-bold fs-5 text-primary">
+                                    Rp {{ number_format($janjiPeriksa->periksa->total_biaya, 0, ',', '.') }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="mt-4">
                         <a href="{{ route('pasien.riwayat-periksa.index') }}" class="btn btn-secondary">
                             <i class="bi bi-arrow-left me-1"></i> Kembali

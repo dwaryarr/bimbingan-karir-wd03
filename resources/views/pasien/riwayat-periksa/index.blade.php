@@ -34,14 +34,21 @@
                             @foreach ($janjiPeriksa as $jp)
                                 <tr>
                                     <th scope="row" class="align-middle text-start">{{ $loop->iteration }}</th>
-                                    <td class="align-middle text-start">{{ $jp->jadwalPeriksa->dokter->poli->nama }}
+                                    <td class="align-middle text-start">
+                                        {{ $jp->jadwalPeriksa->dokter->poli->nama }}
                                     </td>
-                                    <td class="align-middle text-start">{{ $jp->jadwalPeriksa->dokter->nama }}</td>
-                                    <td class="align-middle text-start">{{ $jp->jadwalPeriksa->hari }}</td>
+                                    <td class="align-middle text-start">{{ $jp->jadwalPeriksa->dokter->nama }}
+
+                                    </td>
+                                    <td class="align-middle text-start">{{ $jp->jadwalPeriksa->hari }}
+
+                                    </td>
                                     <td class="align-middle text-start">
-                                        {{ \Carbon\Carbon::parse($jp->jadwalPeriksa->jam_mulai)->format('H:i') }}</td>
+                                        {{ \Carbon\Carbon::parse($jp->jadwalPeriksa->jam_mulai)->format('H:i') }}
+                                    </td>
                                     <td class="align-middle text-start">
-                                        {{ \Carbon\Carbon::parse($jp->jadwalPeriksa->jam_selesai)->format('H:i') }}</td>
+                                        {{ \Carbon\Carbon::parse($jp->jadwalPeriksa->jam_selesai)->format('H:i') }}
+                                    </td>
                                     <td class="align-middle text-start">{{ $jp->no_antrian }}</td>
                                     <td class="align-middle text-start">
                                         @if (is_null($jp->periksa))
@@ -62,7 +69,9 @@
                                 </tr>
                             @endforeach
                         </tbody>
+
                     </table>
+
                 </section>
             </div>
         </div>

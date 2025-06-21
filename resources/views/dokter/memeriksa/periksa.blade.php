@@ -85,7 +85,8 @@
 
                             <div class="mb-3">
                                 <label>Total Biaya (Rp)</label>
-                                <input type="text" id="total_biaya" class="form-control" readonly value="0">
+                                <input type="text" id="total_biaya" name="total_biaya" class="form-control" readonly
+                                    value="0">
                             </div>
 
                             <a type="button" href="{{ route('dokter.obat.index') }}" class="btn btn-secondary">

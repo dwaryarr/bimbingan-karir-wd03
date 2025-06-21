@@ -88,7 +88,7 @@
 
                             <div class="mb-3">
                                 <label>Total Biaya (Rp)</label>
-                                <input type="text" id="total_biaya" class="form-control" readonly
+                                <input type="text" id="total_biaya" name="total_biaya" class="form-control" readonly
                                     value="{{ $janjiPeriksa->periksa ? $janjiPeriksa->periksa->biaya_periksa : 150000 }}">
                             </div>
 

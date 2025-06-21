@@ -50,21 +50,23 @@
             @endif
         </div>
 
-        <div>
-            <x-input-label for="id_poli" :value="__('Poli')" />
-            <select id="id_poli" name="id_poli"
-                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-                <option value="" disabled {{ old('id_poli', $user->id_poli ?? '') == '' ? 'selected' : '' }}>
-                    {{ __('Select Poli') }}</option>
-                @foreach ($polis as $poli)
-                    <option value="{{ $poli->id }}"
-                        {{ old('id_poli', $user->id_poli ?? '') == $poli->id ? 'selected' : '' }}>
-                        {{ $poli->nama }}
-                    </option>
-                @endforeach
-            </select>
-            <x-input-error class="mt-2" :messages="$errors->get('poli')" />
-        </div>
+        @if (auth()->user()->role == 'dokter')
+            <div>
+                <x-input-label for="id_poli" :value="__('Poli')" />
+                <select id="id_poli" name="id_poli"
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                    <option value="" disabled {{ old('id_poli', $user->id_poli ?? '') == '' ? 'selected' : '' }}>
+                        {{ __('Select Poli') }}</option>
+                    @foreach ($polis as $poli)
+                        <option value="{{ $poli->id }}"
+                            {{ old('id_poli', $user->id_poli ?? '') == $poli->id ? 'selected' : '' }}>
+                            {{ $poli->nama }}
+                        </option>
+                    @endforeach
+                </select>
+                <x-input-error class="mt-2" :messages="$errors->get('poli')" />
+            </div>
+        @endif
 
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>

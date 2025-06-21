@@ -21,7 +21,6 @@ Route::get('/dashboard', function () {
     } elseif ($user->role === 'pasien') {
         return redirect()->route('pasien.dashboard');
     }
-    return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -64,6 +63,7 @@ Route::middleware('auth')->group(function () {
 
 
     Route::middleware(['role:pasien'])->prefix('pasien')->group(function () {
+
         Route::get('/', [DashboardController::class, 'index'])->name('pasien.dashboard');
 
         Route::prefix('janji-periksa')->group(function () {
