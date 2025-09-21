@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'onedbdatapro' => [
+        'url' => env('DATAPRO_URL'),
+        'username' => env('DATAPRO_UNAME'),
+        'password' => env('DATAPRO_PWORD'),
+    ],
+
 ];

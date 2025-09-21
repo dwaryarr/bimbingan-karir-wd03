@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jun 13, 2025 at 05:14 PM
+-- Host: localhost:3306
+-- Generation Time: Sep 21, 2025 at 08:41 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.3.14
 
@@ -28,8 +28,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `cache` (
-  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `expiration` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -40,8 +40,8 @@ CREATE TABLE `cache` (
 --
 
 CREATE TABLE `cache_locks` (
-  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `owner` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `owner` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `expiration` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -77,11 +77,11 @@ INSERT INTO `detail_periksas` (`id`, `id_periksa`, `id_obat`, `created_at`, `upd
 
 CREATE TABLE `failed_jobs` (
   `id` bigint UNSIGNED NOT NULL,
-  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uuid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -94,7 +94,7 @@ CREATE TABLE `failed_jobs` (
 CREATE TABLE `jadwal_periksas` (
   `id` bigint UNSIGNED NOT NULL,
   `id_dokter` bigint UNSIGNED NOT NULL,
-  `hari` enum('Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hari` enum('Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `jam_mulai` time NOT NULL,
   `jam_selesai` time NOT NULL,
   `status` tinyint(1) NOT NULL,
@@ -134,8 +134,8 @@ CREATE TABLE `janji_periksas` (
   `id` bigint UNSIGNED NOT NULL,
   `id_pasien` bigint UNSIGNED NOT NULL,
   `id_jadwal_periksa` bigint UNSIGNED NOT NULL,
-  `keluhan` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `no_antrian` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `keluhan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `no_antrian` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -156,8 +156,8 @@ INSERT INTO `janji_periksas` (`id`, `id_pasien`, `id_jadwal_periksa`, `keluhan`,
 
 CREATE TABLE `jobs` (
   `id` bigint UNSIGNED NOT NULL,
-  `queue` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `attempts` tinyint UNSIGNED NOT NULL,
   `reserved_at` int UNSIGNED DEFAULT NULL,
   `available_at` int UNSIGNED NOT NULL,
@@ -171,13 +171,13 @@ CREATE TABLE `jobs` (
 --
 
 CREATE TABLE `job_batches` (
-  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `total_jobs` int NOT NULL,
   `pending_jobs` int NOT NULL,
   `failed_jobs` int NOT NULL,
-  `failed_job_ids` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `options` mediumtext COLLATE utf8mb4_unicode_ci,
+  `failed_job_ids` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `options` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `cancelled_at` int DEFAULT NULL,
   `created_at` int NOT NULL,
   `finished_at` int DEFAULT NULL
@@ -207,7 +207,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (13, '2025_05_27_173430_create_jadwal_periksas_table', 1),
 (14, '2025_05_27_173453_create_janji_periksas_table', 1),
 (15, '2025_05_27_173503_create_periksas_table', 1),
-(16, '2025_05_27_173513_create_detail_periksas_table', 1);
+(16, '2025_05_27_173513_create_detail_periksas_table', 1),
+(17, '2025_06_16_173207_create_polis_table', 2);
 
 -- --------------------------------------------------------
 
@@ -217,38 +218,39 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 
 CREATE TABLE `obats` (
   `id` bigint UNSIGNED NOT NULL,
-  `nama_obat` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `kemasan` varchar(35) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama_obat` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kemasan` varchar(35) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `harga` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `obats`
 --
 
-INSERT INTO `obats` (`id`, `nama_obat`, `kemasan`, `harga`, `created_at`, `updated_at`) VALUES
-(1, 'Paracetamol', 'Tablet 500mg', 5000, '2025-06-13 09:41:39', '2025-06-13 09:41:39'),
-(2, 'Amoxicillin', 'Kapsul 500mg', 12000, '2025-06-13 09:41:39', '2025-06-13 09:41:39'),
-(3, 'Cetirizine', 'Tablet 10mg', 8000, '2025-06-13 09:41:39', '2025-06-13 09:41:39'),
-(4, 'Omeprazole', 'Kapsul 20mg', 15000, '2025-06-13 09:41:39', '2025-06-13 09:41:39'),
-(5, 'Ibuprofen', 'Tablet 400mg', 7000, '2025-06-13 09:41:39', '2025-06-13 09:41:39'),
-(6, 'Loratadine', 'Tablet 10mg', 9000, '2025-06-13 09:41:39', '2025-06-13 09:41:39'),
-(7, 'Metformin', 'Tablet 500mg', 10000, '2025-06-13 09:41:39', '2025-06-13 09:41:39'),
-(8, 'Simvastatin', 'Tablet 20mg', 25000, '2025-06-13 09:41:39', '2025-06-13 09:41:39'),
-(9, 'Aspirin', 'Tablet 80mg', 6000, '2025-06-13 09:41:39', '2025-06-13 09:41:39'),
-(10, 'Dexamethasone', 'Tablet 0.5mg', 18000, '2025-06-13 09:41:39', '2025-06-13 09:41:39'),
-(11, 'Furosemide', 'Tablet 40mg', 11000, '2025-06-13 09:41:39', '2025-06-13 09:41:39'),
-(12, 'Metronidazole', 'Tablet 500mg', 13000, '2025-06-13 09:41:39', '2025-06-13 09:41:39'),
-(13, 'Ranitidine', 'Tablet 150mg', 14000, '2025-06-13 09:41:39', '2025-06-13 09:41:39'),
-(14, 'Salbutamol', 'Inhaler 100mcg', 45000, '2025-06-13 09:41:39', '2025-06-13 09:41:39'),
-(15, 'Ciprofloxacin', 'Tablet 500mg', 20000, '2025-06-13 09:41:39', '2025-06-13 09:41:39'),
-(16, 'Diazepam', 'Tablet 5mg', 22000, '2025-06-13 09:41:39', '2025-06-13 09:41:39'),
-(17, 'Losartan', 'Tablet 50mg', 30000, '2025-06-13 09:41:39', '2025-06-13 09:41:39'),
-(18, 'Amlodipine', 'Tablet 5mg', 17000, '2025-06-13 09:41:39', '2025-06-13 09:41:39'),
-(19, 'Vitamin C', 'Tablet 500mg', 5000, '2025-06-13 09:41:39', '2025-06-13 09:41:39'),
-(20, 'Vitamin B Complex', 'Kapsul', 12000, '2025-06-13 09:41:39', '2025-06-13 09:41:39');
+INSERT INTO `obats` (`id`, `nama_obat`, `kemasan`, `harga`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Paracetamol', 'Tablet 500mg', 5000, '2025-06-13 09:41:39', '2025-06-13 09:41:39', NULL),
+(2, 'Amoxicillin', 'Kapsul 500mg', 12000, '2025-06-13 09:41:39', '2025-06-13 09:41:39', NULL),
+(3, 'Cetirizine', 'Tablet 10mg', 8000, '2025-06-13 09:41:39', '2025-06-13 09:41:39', NULL),
+(4, 'Omeprazole', 'Kapsul 20mg', 15000, '2025-06-13 09:41:39', '2025-06-13 09:41:39', NULL),
+(5, 'Ibuprofen', 'Tablet 400mg', 7000, '2025-06-13 09:41:39', '2025-06-13 09:41:39', NULL),
+(6, 'Loratadine', 'Tablet 10mg', 9000, '2025-06-13 09:41:39', '2025-06-13 09:41:39', NULL),
+(7, 'Metformin', 'Tablet 500mg', 10000, '2025-06-13 09:41:39', '2025-06-13 09:41:39', NULL),
+(8, 'Simvastatin', 'Tablet 20mg', 25000, '2025-06-13 09:41:39', '2025-06-13 09:41:39', NULL),
+(9, 'Aspirin', 'Tablet 80mg', 6000, '2025-06-13 09:41:39', '2025-06-13 09:41:39', NULL),
+(10, 'Dexamethasone', 'Tablet 0.5mg', 18000, '2025-06-13 09:41:39', '2025-06-13 09:41:39', NULL),
+(11, 'Furosemide', 'Tablet 40mg', 11000, '2025-06-13 09:41:39', '2025-06-13 09:41:39', NULL),
+(12, 'Metronidazole', 'Tablet 500mg', 13000, '2025-06-13 09:41:39', '2025-06-13 09:41:39', NULL),
+(13, 'Ranitidine', 'Tablet 150mg', 14000, '2025-06-13 09:41:39', '2025-06-13 09:41:39', NULL),
+(14, 'Salbutamol', 'Inhaler 100mcg', 45000, '2025-06-13 09:41:39', '2025-06-13 09:41:39', NULL),
+(15, 'Ciprofloxacin', 'Tablet 500mg', 20000, '2025-06-13 09:41:39', '2025-06-13 09:41:39', NULL),
+(16, 'Diazepam', 'Tablet 5mg', 22000, '2025-06-13 09:41:39', '2025-06-13 09:41:39', NULL),
+(17, 'Losartan', 'Tablet 50mg', 30000, '2025-06-13 09:41:39', '2025-06-13 09:41:39', NULL),
+(18, 'Amlodipine', 'Tablet 5mg', 17000, '2025-06-13 09:41:39', '2025-06-13 09:41:39', NULL),
+(19, 'Vitamin C', 'Tablet 500mg', 5000, '2025-06-13 09:41:39', '2025-06-13 09:41:39', NULL),
+(20, 'Vitamin B Complex', 'Kapsul', 12000, '2025-06-13 09:41:39', '2025-06-13 09:41:39', NULL);
 
 -- --------------------------------------------------------
 
@@ -257,8 +259,8 @@ INSERT INTO `obats` (`id`, `nama_obat`, `kemasan`, `harga`, `created_at`, `updat
 --
 
 CREATE TABLE `password_reset_tokens` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -272,7 +274,7 @@ CREATE TABLE `periksas` (
   `id` bigint UNSIGNED NOT NULL,
   `id_janji_periksa` bigint UNSIGNED NOT NULL,
   `tgl_periksa` datetime NOT NULL,
-  `catatan` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `catatan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `biaya_periksa` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -288,15 +290,29 @@ INSERT INTO `periksas` (`id`, `id_janji_periksa`, `tgl_periksa`, `catatan`, `bia
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `polis`
+--
+
+CREATE TABLE `polis` (
+  `id` bigint UNSIGNED NOT NULL,
+  `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deskripsi` text COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sessions`
 --
 
 CREATE TABLE `sessions` (
-  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` bigint UNSIGNED DEFAULT NULL,
-  `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_agent` text COLLATE utf8mb4_unicode_ci,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ip_address` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_agent` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `last_activity` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -307,9 +323,11 @@ CREATE TABLE `sessions` (
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
 ('7WQxrXxg1b3kdWaUGrb0vNfGmexq6e6xkUPUUGvH', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiSnNlWkt4TVgySWtxUWp0ZHBrT0hDa3FMSEFqQ05vdkc1WjlxcFp6ciI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czozODoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2Rva3Rlci9tZW1lcmlrc2EiO31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czoyNzoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1749834800),
 ('eyE1N5mhWwOaBm5UCvE4H96iA6rNVIyuxEtZLqqZ', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiVUs3UzhmUGhHejZmaW5ZMGhROWlTcTVuaWs5ZkR2RDhVZVlnTjBXaCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wYXNpZW4vcml3YXlhdC1wZXJpa3NhL2RldGFpbC8yIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1749834744),
+('GBX7astC96lXRadzJ0UWUxggJMifwdqqqlySDc4f', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoidlBRRG1vd0FQWjZ6ck5EWnJDWWVYaktJYVB3QzUyM3BHa0FmUU9pUSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzQ6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC90ZXN0VG9rZW5pemUiO319', 1758443821),
 ('oWDP2rXjwiUf1DUgWUW0C6pPKXVOAiiP2Mmya93N', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoibXJpdEtMVEZwbFdUenBDb1FpTGNudEVzdW1HaUFyaEJCOVRQeUc5ZSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1749834781),
 ('tzupG1PUK5zckngJSjReo4TxljS6kn7tuabXKGjB', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiMm4yYmhZck56ODlYR2puaGxjck4xVEsyc0NMblVLMHp3R05rWWp6bCI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo1MzoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL3Bhc2llbi9yaXdheWF0LXBlcmlrc2EvZGV0YWlsLzIiO31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czoyNzoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1749834769),
-('u3xNWy0m5Uc8b0PCdn8ccL58EkvUuWtZtQZrxoxW', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiWEl6MnVqTjJyUFhIc0RQZG41VmFnN2N5OEY0UUFrZGplNHFVSllSVyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzg6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kb2t0ZXIvbWVtZXJpa3NhIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Mjt9', 1749833070);
+('u3xNWy0m5Uc8b0PCdn8ccL58EkvUuWtZtQZrxoxW', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiWEl6MnVqTjJyUFhIc0RQZG41VmFnN2N5OEY0UUFrZGplNHFVSllSVyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzg6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kb2t0ZXIvbWVtZXJpa3NhIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Mjt9', 1749833070),
+('uCoZFHohaqvHMBgzWKXnkRcs5xEKfL6lX375SFVj', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiWndkdUMwNlNZb1ZZWGZsdGRiR0VJd29BV3VPOVJwT25GMXYyWTdvZiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kb2t0ZXIvb2JhdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjI7fQ==', 1758349826);
 
 -- --------------------------------------------------------
 
@@ -319,32 +337,33 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 
 CREATE TABLE `users` (
   `id` bigint UNSIGNED NOT NULL,
-  `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` enum('pasien','dokter') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `alamat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `no_ktp` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `no_hp` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `no_rm` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `poli` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nama` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` enum('pasien','dokter') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `alamat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `no_ktp` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `no_hp` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `no_rm` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `poli` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `nama`, `email`, `password`, `role`, `alamat`, `no_ktp`, `no_hp`, `no_rm`, `poli`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Bruce Wayne', 'mrwayne@pasien.com', '$2y$12$S/1ROcGBxyzHiVW.BwsQmOGek0C428mhryYEhYhQUJD79ZI/u.1Xe', 'pasien', 'Jl. Merdeka No. 123, Jakarta', '3175010101900001', '081234567890', '202506-001', NULL, NULL, NULL, '2025-06-13 09:41:37', '2025-06-13 09:41:37'),
-(2, 'Dr. Budi Santoso, Sp.PD', 'budi.santoso@klinik.com', '$2y$12$p6VXcMpiz/v/o37BH/sxseOgAar./gyaylAlCACGsGiMcLclsVMD2', 'dokter', 'Jl. Pahlawan No. 123, Jakarta Selatan', '3175062505800001', '081234567890', NULL, 'Penyakit Dalam', NULL, NULL, '2025-06-13 09:41:39', '2025-06-13 09:41:39'),
-(3, 'Dr. Siti Rahayu, Sp.A', 'siti.rahayu@klinik.com', '$2y$12$5UtYw2TzeKWftk3zciUb9.dnGQRi0sHQXRDzbvBN/95Qh2vHRTCEy', 'dokter', 'Jl. Anggrek No. 45, Jakarta Pusat', '3175064610790002', '081234567891', NULL, 'Anak', NULL, NULL, '2025-06-13 09:41:39', '2025-06-13 09:41:39'),
-(4, 'Dr. Ahmad Wijaya, Sp.OG', 'ahmad.wijaya@klinik.com', '$2y$12$kikQg7.gSzxeJwQ.6iuBcOXzieEcn8yl3hz9petgQsCOr.5GY05U6', 'dokter', 'Jl. Melati No. 78, Jakarta Barat', '3175061505780003', '081234567892', NULL, 'Kebidanan dan Kandungan', NULL, NULL, '2025-06-13 09:41:39', '2025-06-13 09:41:39'),
-(5, 'Dr. Rina Putri, Sp.M', 'rina.putri@klinik.com', '$2y$12$Ua70rWIQikMTvA2J8BsayeNg2QvBGOj8u.UPbpYtVUyBjuIHZBeue', 'dokter', 'Jl. Dahlia No. 32, Jakarta Timur', '3175062708850004', '081234567893', NULL, 'Mata', NULL, NULL, '2025-06-13 09:41:39', '2025-06-13 09:41:39'),
-(6, 'Dr. Doni Pratama, Sp.THT', 'doni.pratama@klinik.com', '$2y$12$jvixRzhP3NGY9gpR02C7GuJCctqAUOQr7bZpCO6AiGZV7DdEQVNSG', 'dokter', 'Jl. Kenanga No. 56, Jakarta Utara', '3175061002820005', '081234567894', NULL, 'THT', NULL, NULL, '2025-06-13 09:41:39', '2025-06-13 09:41:39');
+INSERT INTO `users` (`id`, `nama`, `email`, `password`, `role`, `alamat`, `no_ktp`, `no_hp`, `no_rm`, `poli`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Bruce Wayne', 'mrwayne@pasien.com', '$2y$12$S/1ROcGBxyzHiVW.BwsQmOGek0C428mhryYEhYhQUJD79ZI/u.1Xe', 'pasien', 'Jl. Merdeka No. 123, Jakarta', '3175010101900001', '081234567890', '202506-001', NULL, NULL, NULL, '2025-06-13 09:41:37', '2025-06-13 09:41:37', NULL),
+(2, 'Dr. Budi Santoso, Sp.PD', 'budi.santoso@klinik.com', '$2y$12$p6VXcMpiz/v/o37BH/sxseOgAar./gyaylAlCACGsGiMcLclsVMD2', 'dokter', 'Jl. Pahlawan No. 123, Jakarta Selatan', '3175062505800001', '081234567890', NULL, 'Penyakit Dalam', NULL, NULL, '2025-06-13 09:41:39', '2025-06-13 09:41:39', NULL),
+(3, 'Dr. Siti Rahayu, Sp.A', 'siti.rahayu@klinik.com', '$2y$12$5UtYw2TzeKWftk3zciUb9.dnGQRi0sHQXRDzbvBN/95Qh2vHRTCEy', 'dokter', 'Jl. Anggrek No. 45, Jakarta Pusat', '3175064610790002', '081234567891', NULL, 'Anak', NULL, NULL, '2025-06-13 09:41:39', '2025-06-13 09:41:39', NULL),
+(4, 'Dr. Ahmad Wijaya, Sp.OG', 'ahmad.wijaya@klinik.com', '$2y$12$kikQg7.gSzxeJwQ.6iuBcOXzieEcn8yl3hz9petgQsCOr.5GY05U6', 'dokter', 'Jl. Melati No. 78, Jakarta Barat', '3175061505780003', '081234567892', NULL, 'Kebidanan dan Kandungan', NULL, NULL, '2025-06-13 09:41:39', '2025-06-13 09:41:39', NULL),
+(5, 'Dr. Rina Putri, Sp.M', 'rina.putri@klinik.com', '$2y$12$Ua70rWIQikMTvA2J8BsayeNg2QvBGOj8u.UPbpYtVUyBjuIHZBeue', 'dokter', 'Jl. Dahlia No. 32, Jakarta Timur', '3175062708850004', '081234567893', NULL, 'Mata', NULL, NULL, '2025-06-13 09:41:39', '2025-06-13 09:41:39', NULL),
+(6, 'Dr. Doni Pratama, Sp.THT', 'doni.pratama@klinik.com', '$2y$12$jvixRzhP3NGY9gpR02C7GuJCctqAUOQr7bZpCO6AiGZV7DdEQVNSG', 'dokter', 'Jl. Kenanga No. 56, Jakarta Utara', '3175061002820005', '081234567894', NULL, 'THT', NULL, NULL, '2025-06-13 09:41:39', '2025-06-13 09:41:39', NULL);
 
 --
 -- Indexes for dumped tables
@@ -431,6 +450,12 @@ ALTER TABLE `periksas`
   ADD KEY `periksas_id_janji_periksa_foreign` (`id_janji_periksa`);
 
 --
+-- Indexes for table `polis`
+--
+ALTER TABLE `polis`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `sessions`
 --
 ALTER TABLE `sessions`
@@ -483,7 +508,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `obats`
@@ -496,6 +521,12 @@ ALTER TABLE `obats`
 --
 ALTER TABLE `periksas`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `polis`
+--
+ALTER TABLE `polis`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`

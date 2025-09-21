@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\Dokter\JadwalPeriksaController;
-use App\Http\Controllers\Dokter\MemeriksaController;
 use App\Models\Obat;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Dokter\ObatController;
+use App\Http\Controllers\OneDBTokenizeController;
+use App\Http\Controllers\Dokter\MemeriksaController;
 use App\Http\Controllers\pasien\DashboardController;
 use App\Http\Controllers\Pasien\JanjiPeriksaController;
+use App\Http\Controllers\Dokter\JadwalPeriksaController;
 use App\Http\Controllers\Pasien\RiwayatPeriksaController;
-use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -78,5 +79,30 @@ Route::middleware('auth')->group(function () {
         });
     });
 });
+
+// OneDB DataPro Test Routes
+Route::prefix('datapro')->group(function () {
+    // Tokenize operations
+    Route::get('/tokenize-single', [OneDBTokenizeController::class, 'tokenizeSingle']);
+    Route::get('/tokenize-fields', [OneDBTokenizeController::class, 'tokenizeFields']);
+    Route::get('/tokenize-multiple', [OneDBTokenizeController::class, 'tokenizeMultiple']);
+    Route::get('/tokenize-batch', [OneDBTokenizeController::class, 'tokenizeBatch']);
+
+    // Detokenize operations
+    Route::get('/detokenize-single', [OneDBTokenizeController::class, 'detokenizeSingle']);
+    Route::get('/detokenize-fields', [OneDBTokenizeController::class, 'detokenizeFields']);
+    Route::get('/detokenize-batch', [OneDBTokenizeController::class, 'detokenizeBatch']);
+
+    // Utility operations
+    Route::get('/check-token-status', [OneDBTokenizeController::class, 'checkTokenStatus']);
+    Route::get('/templates', [OneDBTokenizeController::class, 'getTemplates']);
+
+    // Demo all features
+    Route::get('/demo-all', [OneDBTokenizeController::class, 'demoAll']);
+});
+
+// Legacy routes (kept for backward compatibility)
+Route::get('/testTokenize', [OneDBTokenizeController::class, 'tokenizeSingle']);
+Route::get('/testTokenizeFields', [OneDBTokenizeController::class, 'tokenizeFields']);
 
 require __DIR__ . '/auth.php';

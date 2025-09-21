@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('nama_obat', 50);
             $table->string('kemasan', 35);
             $table->integer('harga');
-            $table->softDeletes(); // Soft delete column
             $table->timestamps();
+            $table->softDeletes(); // Soft delete column
         });
     }
 

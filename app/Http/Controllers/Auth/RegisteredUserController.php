@@ -31,38 +31,51 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-        'nama' => ['required', 'string', 'max:255'],
-        'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
-        'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        'alamat' => ['required', 'string', 'max:255'],
-        'no_hp' => ['required', 'string', 'max:50'],
-        'no_ktp' => ['required', 'string', 'max:255'],
-    ]);
-
-    $existingPatient = User::where('no_ktp', $request->no_ktp)->first();
-
-    if ($existingPatient) {
-        throw ValidationException::withMessages([
-            'email' => trans('auth.failed'),
+            'nama' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'alamat' => ['required', 'string', 'max:255'],
+            'no_hp' => ['required', 'string', 'max:50'],
+            'no_ktp' => ['required', 'string', 'max:255'],
         ]);
-    }
 
-    $currentYearMonth = date('Ym');
-    $patientCount = User::where('no_rm', 'like', $currentYearMonth . '-%')->count();
-    $no_rm = $currentYearMonth . '-' . str_pad($patientCount + 1, 3, '0', STR_PAD_LEFT);
+        $existingPatient = User::where('no_ktp', $request->no_ktp)->first();
 
-    $user = User::create([
-        'nama' => $request->nama,
-        'email' => $request->email,
-        'password' => Hash::make($request->password),
-        'role' => 'pasien',
-        'alamat' => $request->alamat,
-        'no_hp' => $request->no_hp,
-        'no_ktp' => $request->no_ktp,
-        'no_rm' => $no_rm,
-    ]);
+        if ($existingPatient) {
+            throw ValidationException::withMessages([
+                'email' => trans('auth.failed'),
+            ]);
+        }
 
-    event(new Registered($user));
+        $currentYearMonth = date('Ym');
+        $patientCount = User::where('no_rm', 'like', $currentYearMonth . '-%')->count();
+        $no_rm = $currentYearMonth . '-' . str_pad($patientCount + 1, 3, '0', STR_PAD_LEFT);
+
+        $user_plain = [
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'password' => $request->password,
+            'role' => 'pasien',
+            'alamat' => $request->alamat,
+            'no_hp' => $request->no_hp,
+            'no_ktp' => $request->no_ktp,
+            'no_rm' => $no_rm,
+        ];
+
+
+
+        $user = User::create([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'pasien',
+            'alamat' => $request->alamat,
+            'no_hp' => $request->no_hp,
+            'no_ktp' => $request->no_ktp,
+            'no_rm' => $no_rm,
+        ]);
+
+        event(new Registered($user));
 
         Auth::login($user);
 
